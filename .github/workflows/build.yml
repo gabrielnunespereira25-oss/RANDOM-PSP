@@ -19,6 +19,7 @@ jobs:
         run: |
           test -f src/main.c
           test -f Makefile
+          echo "Arquivos principais encontrados."
 
       - name: Compilar
         run: |
@@ -28,10 +29,12 @@ jobs:
       - name: Verificar executavel
         run: |
           test -s EBOOT.PBP
-          file EBOOT.PBP
+          echo "EBOOT.PBP criado com sucesso."
+          ls -lh EBOOT.PBP
 
       - name: Publicar EBOOT
         uses: actions/upload-artifact@v4
         with:
           name: RANDOM-PSP-PARTE-1
           path: EBOOT.PBP
+          if-no-files-found: error
