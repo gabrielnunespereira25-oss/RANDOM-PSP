@@ -15,26 +15,31 @@ jobs:
       - name: Baixar repositorio
         uses: actions/checkout@v4
 
-      - name: Verificar estrutura
+      - name: Verificar arquivos
         run: |
           test -f src/main.c
           test -f Makefile
-          echo "Arquivos principais encontrados."
+          test -d assets/sprites
+          echo "Estrutura encontrada."
+
+      - name: Verificar bibliotecas PNG
+        run: |
+          test -f /usr/local/pspdev/psp/include/png.h
+          echo "Cabecalho PNG encontrado."
 
       - name: Compilar
         run: |
           make clean
           make
 
-      - name: Verificar executavel
+      - name: Verificar EBOOT
         run: |
           test -s EBOOT.PBP
-          echo "EBOOT.PBP criado com sucesso."
           ls -lh EBOOT.PBP
 
-      - name: Publicar EBOOT
+      - name: Publicar artefato
         uses: actions/upload-artifact@v4
         with:
-          name: RANDOM-PSP-PARTE-1
+          name: RANDOM-PSP-MENU-SPRITES
           path: EBOOT.PBP
           if-no-files-found: error
