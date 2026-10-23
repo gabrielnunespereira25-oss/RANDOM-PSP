@@ -1,0 +1,37 @@
+
+name: Build RANDOM PSP
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: pspdev/pspdev:latest
+
+    steps:
+      - name: Baixar repositorio
+        uses: actions/checkout@v4
+
+      - name: Verificar estrutura
+        run: |
+          test -f src/main.c
+          test -f Makefile
+
+      - name: Compilar
+        run: |
+          make clean
+          make
+
+      - name: Verificar executavel
+        run: |
+          test -s EBOOT.PBP
+          file EBOOT.PBP
+
+      - name: Publicar EBOOT
+        uses: actions/upload-artifact@v4
+        with:
+          name: RANDOM-PSP-PARTE-1
+          path: EBOOT.PBP
