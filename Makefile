@@ -7,7 +7,7 @@ CFLAGS = -O2 -G0 -Wall
 CXXFLAGS = $(CFLAGS)
 ASFLAGS = $(CFLAGS)
 
-LIBS = -lpng -lz -lpspgu -lpspgum -lpspdisplay -lpspctrl -lpspiofilemgr -lpspkernel
+LIBS = -lpng -lz -lpspgu -lpspgum -lpspdisplay -lpspctrl -lpspkernel
 
 BUILD_PRX = 0
 EXTRA_TARGETS = EBOOT.PBP
